@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c000794-a044-4ab5-a3a1-c019a688ab42" name="Default" comment="remove .idea">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path="angular2-seed-master.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -106,8 +106,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -137,60 +137,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/app/contact/contact.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/forms/CustomValidators.ts" />
-        <option value="$PROJECT_DIR$/src/app/github/repo-list/repo-list.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/contact/contact.component.html" />
-        <option value="$PROJECT_DIR$/src/app/test/test.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/github/repo-detail/repo-detail.component.html" />
-        <option value="$PROJECT_DIR$/src/app/test/test.component.html" />
-        <option value="$PROJECT_DIR$/src/app/http.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/about/searchResultsPage.ts" />
-        <option value="$PROJECT_DIR$/src/app/searchByName/searchResultsPage.ts" />
-        <option value="$PROJECT_DIR$/src/app/app.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/data.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/searchLocations.ts" />
-        <option value="$PROJECT_DIR$/src/app/searchLocation.ts" />
-        <option value="$PROJECT_DIR$/src/app/FavouritesObject.ts" />
-        <option value="$PROJECT_DIR$/src/app/PropertyListing/Property Listing.ts" />
-        <option value="$PROJECT_DIR$/src/app/PropertyListing/propertyListing.component.css" />
-        <option value="$PROJECT_DIR$/src/app/favouritesObject.service.ts" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/app/customLocationsData.service.ts" />
-        <option value="$PROJECT_DIR$/src/style.css" />
-        <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/app/PropertyListing/propertyListing.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/FavesObj/searchResultsByName.ts" />
-        <option value="$PROJECT_DIR$/src/app/FavesObj/favesObj.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/PropertyListing/propertyListing.component.html" />
-        <option value="$PROJECT_DIR$/src/app/FavesObj/favesObj.component.html" />
-        <option value="$PROJECT_DIR$/src/app/app.component.html" />
-        <option value="$PROJECT_DIR$/src/app/propertyListing/propertyListing.component.css" />
-        <option value="$PROJECT_DIR$/src/app/favesObj/favesObj.component.css" />
-        <option value="$PROJECT_DIR$/src/app/searchByName/searchResultsByName.css" />
-        <option value="$PROJECT_DIR$/src/app/services/customLocationsData.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/searchByName/searchResultsByName.html" />
-        <option value="$PROJECT_DIR$/src/main.browser.ts" />
-        <option value="$PROJECT_DIR$/src/app/app.routes.ts" />
-        <option value="$PROJECT_DIR$/src/app/searchByName/searchResultsByName.ts" />
-        <option value="$PROJECT_DIR$/src/app/services/currentLocationsData.service.ts" />
-        <option value="$PROJECT_DIR$/src/app/app.module.ts" />
-        <option value="$PROJECT_DIR$/src/app/home/home.component.css" />
-        <option value="$PROJECT_DIR$/src/styles/style.css" />
-        <option value="$PROJECT_DIR$/src/app/home/home.component.html" />
-        <option value="$PROJECT_DIR$/src/app/favesObj/favesObj.component.html" />
-        <option value="$PROJECT_DIR$/src/app/favesObj/favesObj.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/home/home.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/propertyListing/propertyListing.component.ts" />
-        <option value="$PROJECT_DIR$/src/app/propertyListing/propertyListing.component.html" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-      </list>
-    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
@@ -256,16 +202,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="editor.config.accepted" value="true" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RunManager" selected="Node.js.Unnamed">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -350,7 +287,7 @@
       <workItem from="1510736127918" duration="32029000" />
       <workItem from="1510831089175" duration="724000" />
       <workItem from="1510831882848" duration="39000" />
-      <workItem from="1510834094126" duration="1838000" />
+      <workItem from="1510834094126" duration="2246000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1510834263899</created>
@@ -387,11 +324,25 @@
       <option name="project" value="LOCAL" />
       <updated>1510836096292</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="remove .idea">
+      <created>1510836170601</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1510836170601</updated>
+    </task>
+    <task id="LOCAL-00007" summary="change gitignore">
+      <created>1510836554185</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1510836554185</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218718000" />
+    <option name="totallyTimeSpent" value="219126000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -432,7 +383,8 @@
     <MESSAGE value="Add project" />
     <MESSAGE value="delete workspace file" />
     <MESSAGE value="remove .idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove .idea" />
+    <MESSAGE value="change gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="change gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -716,8 +668,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="153">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
           <folding />
         </state>
       </provider>
