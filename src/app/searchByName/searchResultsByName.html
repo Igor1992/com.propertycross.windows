@@ -1,0 +1,15 @@
+<div>
+  <h3 class="text-header-search-page" *ngIf="responseListings">{{responseListings.length}} of y matches</h3>
+  <div class="wrapper-listing-obj" *ngFor="let responseListing of responseListings">
+    <a [routerLink]="['/propertyListing']" [queryParams]="{'id': responseListing.img_url, 'curStrSearch': strSearch}">
+      <img src="{{responseListing.img_url}}" class="img-listing-obj">
+      <p class="price-listing-obj">{{responseListing.price_formatted}}</p>
+      <p class="tittle-listing-obj">{{responseListing.title}}</p>
+    </a>
+  </div>
+  <div class="wrapper-text-footer-search-page">
+    <span class="text-footer-search-page" (click)="searchMoreObjects()" *ngIf="isAddedNewObject && !isLoad">Load more...</span>
+    <span *ngIf="isLoad">Loading...</span>
+  </div>
+</div>
+

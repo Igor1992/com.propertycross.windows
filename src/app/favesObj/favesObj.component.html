@@ -1,0 +1,15 @@
+<h4 class="text-header-faves-page">Favourites</h4>
+<div>
+  {{textError}}
+</div>
+
+<div *ngIf="favoritesObjects && favoritesObjects.length > 0"></div>
+<div class="wrapper-listing-obj" *ngFor="let favoriteObj of favoritesObjects">
+  <a [routerLink]="['/propertyListing']" [queryParams]="{'id': favoriteObj.img_url}">
+    <div>
+      <img src="{{favoriteObj.img_url}}" class="img-listing-obj">
+      <p class="price-listing-obj">{{favoriteObj.price_formatted}}</p>
+      <p class="tittle-listing-obj">{{favoriteObj.title}}</p>
+    </div>
+  </a>
+</div>

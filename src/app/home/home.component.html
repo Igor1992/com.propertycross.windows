@@ -1,0 +1,34 @@
+<div>
+
+  <div class="container-header">
+    <h3 class="col-2 text-header">PropertyCross</h3>
+    <button (click)="goFavesPage()" class="btn-header">Faves</button>
+  </div>
+  <div>
+    <p>Use the form below to search for houses to buy. You can search by place-name, postcode,
+      or click 'My location', to search in your current location!</p>
+    <input type="text" [(ngModel)]="strSearch">
+    <button (click)="getSearchLocatedByName(strSearch)">GO</button>
+    <button (click)="getCurrentLocations()">My location</button>
+  </div>
+
+  <span>{{errorText}}</span>
+
+  <div *ngIf="!errorText">
+    <span>{{instructionText}}</span>
+    <div class="listings-wrapper">
+      <div *ngIf="lastSearchLocations.length && !currentLocations">
+        <div *ngFor="let customLoc of lastSearchLocations">
+          {{customLoc.name}} ( {{customLoc.count}} )
+        </div>
+      </div>
+
+      <div *ngIf="currentLocations">
+        <div *ngFor="let currentLoc of currentLocations">
+          <a href="#">{{currentLoc.long_title}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

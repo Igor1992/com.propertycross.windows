@@ -1,0 +1,18 @@
+.text-header-search-page{
+  text-align: center;
+}
+
+.wrapper-text-footer-search-page{
+  text-align: center;
+}
+
+.text-footer-search-page{
+  cursor: pointer;
+  color: #0275d8;
+}
+
+.text-footer-search-page:focus, .text-footer-search-page:hover{
+  color: #014c8c;
+  text-decoration: underline;
+}
+

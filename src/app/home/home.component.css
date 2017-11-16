@@ -1,0 +1,9 @@
+.main-content{
+  margin: 0 auto;
+}
+
+.listings-wrapper{
+  border: 1px solid;
+  padding: 0 0 7px 10px;
+  min-height: 128px;
+}

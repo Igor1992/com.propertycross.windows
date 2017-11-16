@@ -1,0 +1,14 @@
+<div *ngIf="curPropListing">
+  <div class="container-header">
+    <h3 class="text-header">Property Details</h3>
+    <button (click)="toggleFavorite()" class="btn-header">+</button>
+  </div>
+
+  <div *ngIf="curPropListing">
+    <p>{{curPropListing.price_formatted}}</p>
+    <span>{{curPropListing.title}}</span>
+    <img class="img-obj-details" src="{{curPropListing.img_url}}">
+    <p>{{curPropListing.bedroom_number}} bed, {{curPropListing.bathroom_number}} bathrooms</p>
+    <p>{{curPropListing.summary}}</p>
+  </div>
+</div>

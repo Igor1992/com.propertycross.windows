@@ -1,0 +1,39 @@
+.content-width-page > home > div,
+.content-width-page > search-results-by-name > div,
+.content-width-page > prop-listing > div{
+  min-width: 376px;
+}
+
+.container-header{
+  padding: 0;
+}
+
+.container-header .text-header{
+  display: inline-block;
+  margin-left: 16%;
+}
+
+.btn-header{
+  float: right;
+}
+
+img{
+  float: left;
+  width: 120px;
+}
+
+.price-listing-obj{
+  width: 65%;
+  float: right;
+  margin: 0 0 0 2%;
+}
+
+.wrapper-listing-obj{
+  height: 92px;
+  margin-bottom: 10px;
+  border: 1px solid;
+}
+
+.tittle-listing-obj{
+  margin-left: 35%;
+}
