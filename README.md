@@ -1,7 +1,4 @@
-## angular2-seed
-
-A simple starter project demonstrating the basic concepts of Angular 2.
-
+## com.propertycross.windows
 
 ### Usage
 - Clone or fork this repository
