@@ -42,11 +42,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
         this.strSearch = params['strSearch'];
       });
 
-    this.customLocationsService.getData(this.strSearch, this.numPage + 1).subscribe(data => {
-      if (data._body.response.listings.length > 0) {
-        this.isAddedNewObject = true;
-      }
-    });
+        this.checkIsNewObjects();
 
     this.customLocationsService.getData(this.strSearch, this.numPage).subscribe(data => {
       this.responseListings = data._body.response.listings;
@@ -54,18 +50,26 @@ export class SearchResultsByName implements OnInit, OnDestroy {
     });
   }
 
-  searchMoreObjects() {
-    this.isLoad = true;
-    this.numPage++;
-    this.customLocationsService.getData(this.strSearch, this.numPage).subscribe(data => {
-      if (data._body.response.listings.length > 0) {
-        this.responseListings = this.responseListings.concat(data._body.response.listings);
-        this.isLoad = false;
-        localStorage.currentObjectsInList = JSON.stringify(this.responseListings);
-        debugger;
-      } else {
-        this.isAddedNewObject = false;
-      }
-    });
-  }
+    searchMoreObjects() {
+        this.isLoad = true;
+        this.numPage++;
+        this.customLocationsService.getData(this.strSearch, this.numPage).subscribe(data => {
+            if (data._body.response.listings.length > 0) {
+                this.responseListings = this.responseListings.concat(data._body.response.listings);
+                this.isLoad = false;
+                localStorage.currentObjectsInList = JSON.stringify(this.responseListings);
+            } else {
+                this.isAddedNewObject = false;
+                this.isLoad = false;
+            }
+        });
+        this.checkIsNewObjects();
+    }
+
+    checkIsNewObjects() {
+        this.customLocationsService.getData(this.strSearch, this.numPage + 1).subscribe(data => {
+            this.isAddedNewObject = data._body.response.listings.length > 0;
+        });
+    }
+
 }

@@ -25,7 +25,8 @@
 
       <div *ngIf="currentLocations">
         <div *ngFor="let currentLoc of currentLocations">
-          <a href="#">{{currentLoc.long_title}}</a>
+          <a [routerLink]="['/searchResults']" [queryParams]="{'strSearch': currentLoc.long_title | formattedKey}">
+              {{currentLoc.long_title}}</a>
         </div>
       </div>
     </div>
