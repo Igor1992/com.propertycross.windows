@@ -12,7 +12,6 @@ import { PropertyListing } from './propertyListing/propertyListing.component';
 import { FavesObj } from './favesObj/favesObj.component';
 import { CustomLocationsService } from './services/customLocationsData.service';
 import { CurrentLocationsService } from './services/currentLocationsData.service';
-import { FormattedKeyPipe } from './pipes/formattedKey.pipe';
 
 @NgModule({
   declarations: [
@@ -20,8 +19,7 @@ import { FormattedKeyPipe } from './pipes/formattedKey.pipe';
     SearchResultsByName,
     HomeComponent,
     PropertyListing,
-    FavesObj,
-    FormattedKeyPipe
+    FavesObj
   ],
   imports: [
     BrowserModule,

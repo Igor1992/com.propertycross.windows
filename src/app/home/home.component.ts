@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   errorText: string;
   strSearch: string;
   lastSearchLocations: Object[];
-  currentLocations: Object[];
+  currentLocations: any[];
 
   constructor(private router: Router, private customLocationsService: CustomLocationsService,
               private currentLocationsService: CurrentLocationsService) {
@@ -44,6 +44,9 @@ export class HomeComponent implements OnInit {
     this.currentLocationsService.getData().subscribe(data => {
       this.instructionText = "Please select a location below:";
       this.currentLocations = data._body.response.locations;
+      this.currentLocations.forEach(location => {
+        location.long_title_formatted = location.long_title.replace(",", "_");
+      });
     });
   }
 
