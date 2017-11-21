@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {favesObjKey, currentObjKey} from "../appConfig/app.config";
 
 @Component({
   selector: 'prop-listing',
@@ -10,7 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 export class PropertyListing implements OnInit {
   id: string;
   strSearch: string;
-  curPropListing: Object;
+  curPropListings: Object[];
   favoritesObjects: Object[];
 
   constructor(private route: ActivatedRoute) {}
@@ -24,27 +25,25 @@ export class PropertyListing implements OnInit {
       });
 
     if (!this.strSearch) {
-      this.searchCurObject(JSON.parse(localStorage.favoritesObjects));
+      this.curPropListings = this.searchCurObject(JSON.parse(localStorage.getItem(favesObjKey)));
+    }else{
+      this.curPropListings = this.searchCurObject(JSON.parse(localStorage.getItem(currentObjKey)));
     }
-
-    this.searchCurObject(JSON.parse(localStorage.currentObjectsInList));
   }
 
   toggleFavorite() {
-    this.favoritesObjects = localStorage.favoritesObjects
-      ? JSON.parse(localStorage.favoritesObjects) : [];
+    debugger;
+    this.favoritesObjects = localStorage.getItem(favesObjKey)
+      ? JSON.parse(localStorage.getItem(favesObjKey)) : [];
 
-    this.favoritesObjects.push(this.curPropListing);
-    localStorage.favoritesObjects = JSON.stringify(this.favoritesObjects);
+    this.favoritesObjects.push(this.curPropListings[0]);
+    localStorage.setItem(favesObjKey, JSON.stringify(this.favoritesObjects));
     console.log("Object added in favourite");
   }
 
-  private searchCurObject(listings: Object[]) {
-    listings.forEach(listing => {
-      if (listing.img_url === this.id) {
-        this.curPropListing = listing;
-        return;
-      }
+  private searchCurObject(listings: any[]) : any[]{
+    return listings.filter(listing => {
+      return listing.img_url == this.id;
     });
   }
 

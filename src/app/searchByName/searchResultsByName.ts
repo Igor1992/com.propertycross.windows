@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {SearchLocation} from '../searchLocation';
+import {searchHistoryKey, currentObjKey} from '../appConfig/app.config';
 
 @Component({
   selector: 'search-results-by-name',
@@ -28,12 +29,12 @@ export class SearchResultsByName implements OnInit, OnDestroy {
       this.searchLocationsHistory = this.searchLocationsHistory.slice(0, 5);
     }
 
-    localStorage.searchLocationsHistory = JSON.stringify(this.searchLocationsHistory);
+    localStorage.setItem(searchHistoryKey, JSON.stringify(this.searchLocationsHistory));
   }
 
   ngOnInit() {
-    this.searchLocationsHistory = localStorage.searchLocationsHistory
-      ? JSON.parse(localStorage.searchLocationsHistory) : [];
+    this.searchLocationsHistory = localStorage.getItem(searchHistoryKey)
+      ? JSON.parse(localStorage.getItem(searchHistoryKey)) : [];
 
     this.numPage = 1;
     this.route
@@ -46,7 +47,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
 
     this.customLocationsService.getData(this.strSearch, this.numPage).subscribe(data => {
       this.responseListings = data._body.response.listings;
-      localStorage.currentObjectsInList = JSON.stringify(this.responseListings);
+      localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
     });
   }
 
@@ -57,7 +58,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
             if (data._body.response.listings.length > 0) {
                 this.responseListings = this.responseListings.concat(data._body.response.listings);
                 this.isLoad = false;
-                localStorage.currentObjectsInList = JSON.stringify(this.responseListings);
+                localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
             } else {
                 this.isAddedNewObject = false;
                 this.isLoad = false;

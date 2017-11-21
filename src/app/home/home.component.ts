@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
+import {searchHistoryKey} from '../appConfig/app.config';
 
 @Component({
   selector: 'home',
@@ -22,8 +23,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lastSearchLocations = localStorage.searchLocationsHistory
-      ? JSON.parse(localStorage.searchLocationsHistory) : [];
+    this.lastSearchLocations = localStorage.getItem(searchHistoryKey)
+      ? JSON.parse(localStorage.getItem(searchHistoryKey)) : [];
   }
 
   getSearchLocatedByName(str: string) {
