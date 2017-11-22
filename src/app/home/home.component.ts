@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
+import {searchHistoryKey} from '../appConfig/app.config';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'home',
@@ -14,7 +18,7 @@ export class HomeComponent implements OnInit {
   errorText: string;
   strSearch: string;
   lastSearchLocations: Object[];
-  currentLocations: Object[];
+  currentLocations: any[];
 
   constructor(private router: Router, private customLocationsService: CustomLocationsService,
               private currentLocationsService: CurrentLocationsService) {
@@ -22,8 +26,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lastSearchLocations = localStorage.searchLocationsHistory
-      ? JSON.parse(localStorage.searchLocationsHistory) : [];
+    this.lastSearchLocations = localStorage.getItem(searchHistoryKey)
+      ? JSON.parse(localStorage.getItem(searchHistoryKey)) : [];
   }
 
   getSearchLocatedByName(str: string) {
@@ -40,10 +44,19 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentLocations() {
-    this.currentLocationsService.getData().subscribe(data => {
-      this.instructionText = "Please select a location below:";
-      this.currentLocations = data._body.response.locations;
-    });
+    this.currentLocationsService.getData()
+      .filter(data => data && data._body && data._body.response && data._body.response.locations)
+      .map((data) => {
+        return data._body.response.locations;
+      })
+      .map(locations => locations.map(location => {
+        location.long_title_formatted = location.long_title.replace(",", "_");
+        return location;
+      }))
+      .subscribe(locations => {
+        this.instructionText = "Please select a location below:";
+        this.currentLocations = locations;
+      });
   }
 
   goFavesPage() {
