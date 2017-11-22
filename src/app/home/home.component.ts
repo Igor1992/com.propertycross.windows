@@ -4,6 +4,9 @@ import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
 import {searchHistoryKey} from '../appConfig/app.config';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+
 @Component({
   selector: 'home',
   styleUrls: ['./home.component.css'],
@@ -41,13 +44,19 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentLocations() {
-    this.currentLocationsService.getData().subscribe(data => {
-      this.instructionText = "Please select a location below:";
-      this.currentLocations = data._body.response.locations;
-      this.currentLocations.forEach(location => {
+    this.currentLocationsService.getData()
+      .filter(data => data && data._body && data._body.response && data._body.response.locations)
+      .map((data) => {
+        return data._body.response.locations;
+      })
+      .map(locations => locations.map(location => {
         location.long_title_formatted = location.long_title.replace(",", "_");
+        return location;
+      }))
+      .subscribe(locations => {
+        this.instructionText = "Please select a location below:";
+        this.currentLocations = locations;
       });
-    });
   }
 
   goFavesPage() {
