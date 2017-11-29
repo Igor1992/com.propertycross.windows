@@ -4,6 +4,9 @@ import {CustomLocationsService} from '../services/customLocationsData.service';
 import {SearchLocation} from '../searchLocation';
 import {searchHistoryKey, currentObjKey} from '../appConfig/app.config';
 
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/filter';
+
 @Component({
   selector: 'search-results-by-name',
   styleUrls: ['searchResultsByName.css'],
@@ -11,8 +14,8 @@ import {searchHistoryKey, currentObjKey} from '../appConfig/app.config';
 })
 
 export class SearchResultsByName implements OnInit, OnDestroy {
-  responseListings: Object[];
-  searchLocationsHistory: Object[];
+  responseListings: any[];
+  searchLocationsHistory: SearchLocation[];
   strSearch: string;
   numPage: number;
   isAddedNewObject: boolean;
@@ -54,16 +57,23 @@ export class SearchResultsByName implements OnInit, OnDestroy {
     searchMoreObjects() {
         this.isLoad = true;
         this.numPage++;
-        this.customLocationsService.getData(this.strSearch, this.numPage).subscribe(data => {
-            if (data._body.response.listings.length > 0) {
-                this.responseListings = this.responseListings.concat(data._body.response.listings);
-                this.isLoad = false;
-                localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
-            } else {
-                this.isAddedNewObject = false;
-                this.isLoad = false;
+        this.customLocationsService.getData(this.strSearch, this.numPage)
+          .filter(data => data && data._body && data._body.response)
+          .map(data => {
+            return data._body.response.listings;
+          })
+          .subscribe(listings => {
+            if(listings.length > 0){
+              this.responseListings = this.responseListings.concat(listings);
+              this.isLoad = false;
+              localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
             }
-        });
+            else{
+              this.isAddedNewObject = false;
+              this.isLoad = false;
+            }
+          });
+
         this.checkIsNewObjects();
     }
 

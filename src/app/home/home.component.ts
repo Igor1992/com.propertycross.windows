@@ -4,8 +4,11 @@ import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
 import {searchHistoryKey} from '../appConfig/app.config';
 
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
+
+import {SearchLocation} from "../searchLocation";
 
 @Component({
   selector: 'home',
@@ -17,7 +20,7 @@ export class HomeComponent implements OnInit {
   instructionText: string;
   errorText: string;
   strSearch: string;
-  lastSearchLocations: Object[];
+  lastSearchLocations: SearchLocation[];
   currentLocations: any[];
 
   constructor(private router: Router, private customLocationsService: CustomLocationsService,
@@ -45,13 +48,10 @@ export class HomeComponent implements OnInit {
 
   getCurrentLocations() {
     this.currentLocationsService.getData()
-      .filter(data => data && data._body && data._body.response && data._body.response.locations)
-      .map((data) => {
-        return data._body.response.locations;
-      })
-      .map(locations => locations.map(location => {
-        location.long_title_formatted = location.long_title.replace(",", "_");
-        return location;
+      .filter(data => !!(data && data.locations))
+      .map(data => data.locations.map((loc: IDataL) => {
+        loc.long_title_formatted = loc.long_title.replace(",", "_");
+        return loc;
       }))
       .subscribe(locations => {
         this.instructionText = "Please select a location below:";
