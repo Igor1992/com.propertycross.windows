@@ -7,7 +7,7 @@
   <div>
     <p>Use the form below to search for houses to buy. You can search by place-name, postcode,
       or click 'My location', to search in your current location!</p>
-    <input type="text" [(ngModel)]="strSearch">
+    <input type="text" [(ngModel)]="strSearch" title="name town">
     <button (click)="getSearchLocatedByName(strSearch)">GO</button>
     <button (click)="getCurrentLocations()">My location</button>
   </div>

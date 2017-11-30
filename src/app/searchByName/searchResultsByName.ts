@@ -4,9 +4,6 @@ import {CustomLocationsService} from '../services/customLocationsData.service';
 import {SearchLocation} from '../searchLocation';
 import {searchHistoryKey, currentObjKey} from '../appConfig/app.config';
 
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/filter';
-
 @Component({
   selector: 'search-results-by-name',
   styleUrls: ['searchResultsByName.css'],
@@ -14,7 +11,8 @@ import {searchHistoryKey, currentObjKey} from '../appConfig/app.config';
 })
 
 export class SearchResultsByName implements OnInit, OnDestroy {
-  responseListings: any[];
+  responseListings: IDataListing[];
+  totalCountResults: number;
   searchLocationsHistory: SearchLocation[];
   strSearch: string;
   numPage: number;
@@ -26,7 +24,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
   ngOnDestroy() {
     debugger;
     this.searchLocationsHistory.unshift(new SearchLocation(this.strSearch,
-      this.responseListings.length));
+      this.totalCountResults));
 
     if(this.searchLocationsHistory.length > 4){
       this.searchLocationsHistory = this.searchLocationsHistory.slice(0, 5);
@@ -48,19 +46,21 @@ export class SearchResultsByName implements OnInit, OnDestroy {
 
         this.checkIsNewObjects();
 
-    this.customLocationsService.getData(this.strSearch, this.numPage).subscribe(data => {
-      this.responseListings = data._body.response.listings;
-      localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
-    });
+    this.customLocationsService.getData(this.strSearch, this.numPage)
+      .subscribe(data => {
+        this.responseListings = data.listings;
+        this.totalCountResults = data.total_results;
+        localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
+      });
   }
 
     searchMoreObjects() {
         this.isLoad = true;
         this.numPage++;
         this.customLocationsService.getData(this.strSearch, this.numPage)
-          .filter(data => data && data._body && data._body.response)
+          .filter(data => !!(data && data.listings))
           .map(data => {
-            return data._body.response.listings;
+            return data.listings;
           })
           .subscribe(listings => {
             if(listings.length > 0){
@@ -79,7 +79,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
 
     checkIsNewObjects() {
         this.customLocationsService.getData(this.strSearch, this.numPage + 1).subscribe(data => {
-            this.isAddedNewObject = data._body.response.listings.length > 0;
+            this.isAddedNewObject = data.listings.length > 0;
         });
     }
 
