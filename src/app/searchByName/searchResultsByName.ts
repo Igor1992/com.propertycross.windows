@@ -47,35 +47,30 @@ export class SearchResultsByName implements OnInit, OnDestroy {
         this.checkIsNewObjects();
 
     this.customLocationsService.getData(this.strSearch, this.numPage)
-      .subscribe(data => {
-        this.responseListings = data.listings;
-        this.totalCountResults = data.total_results;
+      .subscribe(({listings, total_results}) => {
+        this.responseListings = listings;
+        this.totalCountResults = total_results;
         localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
       });
   }
 
-    searchMoreObjects() {
-        this.isLoad = true;
-        this.numPage++;
-        this.customLocationsService.getData(this.strSearch, this.numPage)
-          .filter(data => !!(data && data.listings))
-          .map(data => {
-            return data.listings;
-          })
-          .subscribe(listings => {
-            if(listings.length > 0){
-              this.responseListings = this.responseListings.concat(listings);
-              this.isLoad = false;
-              localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
-            }
-            else{
-              this.isAddedNewObject = false;
-              this.isLoad = false;
-            }
-          });
+  searchMoreObjects() {
+    this.isLoad = true;
+    this.isAddedNewObject = false;
+    this.numPage++;
+    this.customLocationsService.getData(this.strSearch, this.numPage)
+      .filter(data => !!(data && data.listings && data.listings.length > 0))
+      .map(data => {
+        return data.listings;
+      })
+      .finally(() => this.isLoad = false)
+      .subscribe(listings => {
+        this.responseListings = this.responseListings.concat(listings);
+        localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
+      });
 
-        this.checkIsNewObjects();
-    }
+    this.checkIsNewObjects();
+  }
 
     checkIsNewObjects() {
         this.customLocationsService.getData(this.strSearch, this.numPage + 1).subscribe(data => {
