@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
-import {SEARCH_HISTORY_KEY, COUNTRY_NAME_KEY, ERROR_CHOOSE_COUNTRY, COUNTRIES, AUTO_STR_SEARCH_VALUES} from '../appConfig/app.config';
+import * as Config from '../appConfig/app.config';
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-
 
 import {SearchLocation} from "../searchLocation";
 
@@ -17,8 +16,8 @@ import {SearchLocation} from "../searchLocation";
 })
 
 export class HomeComponent implements OnInit {
-  countries: any = COUNTRIES;
-  autoStrSearchValues: string[] = AUTO_STR_SEARCH_VALUES;
+  countries: any = Config.COUNTRIES;
+  autoStrSearchValues: string[] = Config.AUTO_STR_SEARCH_VALUES;
   chosenCountry: string;
   instructionText: string;
   errorText: string;
@@ -32,17 +31,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem(COUNTRY_NAME_KEY, null);
-    this.lastSearchLocations = localStorage.getItem(SEARCH_HISTORY_KEY)
-      ? JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) : [];
+    localStorage.setItem(Config.COUNTRY_NAME_KEY, null);
+    this.lastSearchLocations = localStorage.getItem(Config.SEARCH_HISTORY_KEY)
+      ? JSON.parse(localStorage.getItem(Config.SEARCH_HISTORY_KEY)) : [];
   }
 
   getSearchLocatedByName(str: string) {
     if(!this.chosenCountry)
-      return this.errorText = ERROR_CHOOSE_COUNTRY;
-    localStorage.setItem(COUNTRY_NAME_KEY, this.chosenCountry);
-    let numStartPage = 1;
-    this.customLocationsService.getData(str, numStartPage).subscribe(data => {
+      return this.errorText = Config.ERROR_CHOOSE_COUNTRY;
+    localStorage.setItem(Config.COUNTRY_NAME_KEY, this.chosenCountry);
+    this.customLocationsService.getData(str, Config.NUM_START_PAGE).subscribe(data => {
       if (data.listings.length > 0) {
         this.router.navigate(['/searchResults'], {queryParams: {strSearch: str}});
       } else {
@@ -53,10 +51,10 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentLocations() {
-    this.errorText = this.chosenCountry ? null : ERROR_CHOOSE_COUNTRY;
+    this.errorText = this.chosenCountry ? null : Config.ERROR_CHOOSE_COUNTRY;
     if(this.errorText)
       return;
-    localStorage.setItem(COUNTRY_NAME_KEY, this.chosenCountry);
+    localStorage.setItem(Config.COUNTRY_NAME_KEY, this.chosenCountry);
 
     navigator.geolocation.getCurrentPosition((position: Position) => {
       this.setLocations(position);
@@ -70,7 +68,7 @@ export class HomeComponent implements OnInit {
   setLocations(position){
     this.currentLocationsService.getData(position)
       .filter(data => !!(data && data.locations))
-      .map(data => data.locations.map((loc: IDataLocation) => this.getTitleFormatted(loc)))
+      .map(data => data.locations.map(this.getTitleFormatted))
       .subscribe(locations => {
         if(locations.length == 0){
           this.errorText = 'There were no properties found for the given location.';

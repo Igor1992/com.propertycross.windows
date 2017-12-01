@@ -4,6 +4,7 @@ export const SEARCH_HISTORY_KEY = 'searchLocationsHistory';
 export const COUNTRY_NAME_KEY = 'countryName';
 export const ERROR_CHOOSE_COUNTRY = "Please choose country!";
 
+export const NUM_START_PAGE = 1;
 export const AUTO_STR_SEARCH_VALUES = ["Paris", "London", "Leeds", "Berlin", "Madrid", "Rome", "Barcelona", "Toulouse",
   "Strasbourg", "Dijon", "Grenoble", "Aix-en-Provence", "Caen", "Nimes", "Zaragoza", "Wales"];
 

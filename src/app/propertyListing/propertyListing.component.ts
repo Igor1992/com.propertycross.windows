@@ -32,13 +32,13 @@ export class PropertyListing implements OnInit {
   }
 
   toggleFavorite() {
-    debugger;
-    this.favoritesObjects = localStorage.getItem(FAVES_OBJ_KEY)
-      ? JSON.parse(localStorage.getItem(FAVES_OBJ_KEY)) : [];
+    let favesObj = localStorage.getItem(FAVES_OBJ_KEY);
+    this.favoritesObjects = favesObj
+      ? JSON.parse(favesObj) : [];
 
     this.favoritesObjects.push(this.curPropListings[0]);
     localStorage.setItem(FAVES_OBJ_KEY, JSON.stringify(this.favoritesObjects));
-    console.log("Object added in favourite");
+    console.assert("Object added in favourite");
   }
 
   private searchCurObject(listings: any[]) : any[]{
