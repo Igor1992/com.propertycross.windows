@@ -60,9 +60,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
     this.numPage++;
     this.customLocationsService.getData(this.strSearch, this.numPage)
       .filter(data => !!(data && data.listings && data.listings.length > 0))
-      .map(data => {
-        return data.listings;
-      })
+      .map(({listings}) => listings)
       .finally(() => this.isLoad = false)
       .subscribe(listings => {
         this.responseListings = this.responseListings.concat(listings);
