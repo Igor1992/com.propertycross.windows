@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
-import {searchHistoryKey, countryNameKey, errorChooseCountry, countries, autoStrSearchValues} from '../appConfig/app.config';
+import {SEARCH_HISTORY_KEY, COUNTRY_NAME_KEY, ERROR_CHOOSE_COUNTRY, COUNTRIES, AUTO_STR_SEARCH_VALUES} from '../appConfig/app.config';
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -17,8 +17,8 @@ import {SearchLocation} from "../searchLocation";
 })
 
 export class HomeComponent implements OnInit {
-  countries: any = countries;
-  autoStrSearchValues: string[] = autoStrSearchValues;
+  countries: any = COUNTRIES;
+  autoStrSearchValues: string[] = AUTO_STR_SEARCH_VALUES;
   chosenCountry: string;
   instructionText: string;
   errorText: string;
@@ -32,15 +32,15 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem(countryNameKey, null);
-    this.lastSearchLocations = localStorage.getItem(searchHistoryKey)
-      ? JSON.parse(localStorage.getItem(searchHistoryKey)) : [];
+    localStorage.setItem(COUNTRY_NAME_KEY, null);
+    this.lastSearchLocations = localStorage.getItem(SEARCH_HISTORY_KEY)
+      ? JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) : [];
   }
 
   getSearchLocatedByName(str: string) {
     if(!this.chosenCountry)
-      return this.errorText = errorChooseCountry;
-    localStorage.setItem(countryNameKey, this.chosenCountry);
+      return this.errorText = ERROR_CHOOSE_COUNTRY;
+    localStorage.setItem(COUNTRY_NAME_KEY, this.chosenCountry);
     let numStartPage = 1;
     this.customLocationsService.getData(str, numStartPage).subscribe(data => {
       if (data.listings.length > 0) {
@@ -53,33 +53,36 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentLocations() {
-    this.chosenCountry ? this.errorText = null : this.errorText = errorChooseCountry;
+    this.errorText = this.chosenCountry ? null : ERROR_CHOOSE_COUNTRY;
     if(this.errorText)
       return;
-    localStorage.setItem(countryNameKey, this.chosenCountry);
-    console.log('component: get data');
+    localStorage.setItem(COUNTRY_NAME_KEY, this.chosenCountry);
 
     navigator.geolocation.getCurrentPosition((position: Position) => {
-      this.currentLocationsService.getData(position)
-      .filter(data => !!(data && data.locations))
-      .map(data => data.locations.map((loc: IDataLocation) => {
-        console.log('component: map');
-        loc.long_title_formatted = loc.long_title.replace(",", "_");
-        return loc;
-      }))
-      .subscribe((locations => {
-        console.log('component: subscribe');
-        if(locations.length == 0 || !this.currentLocations){
-          this.errorText = 'There were no properties found for the given location.';
-        }
-        this.instructionText = "Please select a location below:";
-        this.currentLocations = locations;
-      }));
+      this.setLocations(position);
     });
   }
 
   goFavesPage() {
     this.router.navigate(['/favesObjects']);
+  }
+
+  setLocations(position){
+    this.currentLocationsService.getData(position)
+      .filter(data => !!(data && data.locations))
+      .map(data => data.locations.map((loc: IDataLocation) => this.getTitleFormatted(loc)))
+      .subscribe(locations => {
+        if(locations.length == 0){
+          this.errorText = 'There were no properties found for the given location.';
+        }
+        this.instructionText = "Please select a location below:";
+        this.currentLocations = locations;
+      });
+  }
+
+  getTitleFormatted(loc: IDataLocation){
+    loc.long_title_formatted = loc.long_title.replace(",", "_");
+    return loc;
   }
 
 }

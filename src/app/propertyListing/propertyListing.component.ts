@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {favesObjKey, currentObjKey} from "../appConfig/app.config";
+import {CURRENT_OBJ_KEY, FAVES_OBJ_KEY} from "../appConfig/app.config";
 
 @Component({
   selector: 'prop-listing',
@@ -25,19 +25,19 @@ export class PropertyListing implements OnInit {
       });
 
     if (!this.strSearch) {
-      this.curPropListings = this.searchCurObject(JSON.parse(localStorage.getItem(favesObjKey)));
+      this.curPropListings = this.searchCurObject(JSON.parse(localStorage.getItem(FAVES_OBJ_KEY)));
     }else{
-      this.curPropListings = this.searchCurObject(JSON.parse(localStorage.getItem(currentObjKey)));
+      this.curPropListings = this.searchCurObject(JSON.parse(localStorage.getItem(CURRENT_OBJ_KEY)));
     }
   }
 
   toggleFavorite() {
     debugger;
-    this.favoritesObjects = localStorage.getItem(favesObjKey)
-      ? JSON.parse(localStorage.getItem(favesObjKey)) : [];
+    this.favoritesObjects = localStorage.getItem(FAVES_OBJ_KEY)
+      ? JSON.parse(localStorage.getItem(FAVES_OBJ_KEY)) : [];
 
     this.favoritesObjects.push(this.curPropListings[0]);
-    localStorage.setItem(favesObjKey, JSON.stringify(this.favoritesObjects));
+    localStorage.setItem(FAVES_OBJ_KEY, JSON.stringify(this.favoritesObjects));
     console.log("Object added in favourite");
   }
 

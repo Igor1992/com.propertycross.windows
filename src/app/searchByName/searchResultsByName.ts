@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {SearchLocation} from '../searchLocation';
-import {searchHistoryKey, currentObjKey} from '../appConfig/app.config';
+import {SEARCH_HISTORY_KEY, CURRENT_OBJ_KEY} from '../appConfig/app.config';
 
 @Component({
   selector: 'search-results-by-name',
@@ -30,12 +30,12 @@ export class SearchResultsByName implements OnInit, OnDestroy {
       this.searchLocationsHistory = this.searchLocationsHistory.slice(0, 5);
     }
 
-    localStorage.setItem(searchHistoryKey, JSON.stringify(this.searchLocationsHistory));
+    localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(this.searchLocationsHistory));
   }
 
   ngOnInit() {
-    this.searchLocationsHistory = localStorage.getItem(searchHistoryKey)
-      ? JSON.parse(localStorage.getItem(searchHistoryKey)) : [];
+    this.searchLocationsHistory = localStorage.getItem(SEARCH_HISTORY_KEY)
+      ? JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) : [];
 
     this.numPage = 1;
     this.route
@@ -50,7 +50,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
       .subscribe(({listings, total_results}) => {
         this.responseListings = listings;
         this.totalCountResults = total_results;
-        localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
+        localStorage.setItem(CURRENT_OBJ_KEY, JSON.stringify(this.responseListings));
       });
   }
 
@@ -64,7 +64,7 @@ export class SearchResultsByName implements OnInit, OnDestroy {
       .finally(() => this.isLoad = false)
       .subscribe(listings => {
         this.responseListings = this.responseListings.concat(listings);
-        localStorage.setItem(currentObjKey, JSON.stringify(this.responseListings));
+        localStorage.setItem(CURRENT_OBJ_KEY, JSON.stringify(this.responseListings));
       });
 
     this.checkIsNewObjects();
