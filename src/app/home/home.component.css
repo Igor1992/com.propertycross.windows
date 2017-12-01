@@ -7,3 +7,11 @@
   padding: 0 0 7px 10px;
   min-height: 128px;
 }
+
+select[name=first]{
+  min-height: 30.4px;
+}
+
+.wrapper-custom-search{
+  margin-bottom: 10px;
+}

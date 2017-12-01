@@ -37,3 +37,7 @@ img{
 .tittle-listing-obj{
   margin-left: 35%;
 }
+
+.ngui-auto-complete-wrapper{
+  display: inline-block;
+}

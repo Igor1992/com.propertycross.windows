@@ -12,6 +12,7 @@ import { PropertyListing } from './propertyListing/propertyListing.component';
 import { FavesObj } from './favesObj/favesObj.component';
 import { CustomLocationsService } from './services/customLocationsData.service';
 import { CurrentLocationsService } from './services/currentLocationsData.service';
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CurrentLocationsService } from './services/currentLocationsData.service
     FavesObj
   ],
   imports: [
+    NguiAutoCompleteModule,
     BrowserModule,
     JsonpModule,
     FormsModule,
