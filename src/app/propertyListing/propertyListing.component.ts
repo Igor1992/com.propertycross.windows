@@ -38,7 +38,7 @@ export class PropertyListing implements OnInit {
 
     this.favoritesObjects.push(this.curPropListings[0]);
     localStorage.setItem(FAVES_OBJ_KEY, JSON.stringify(this.favoritesObjects));
-    console.assert("Object added in favourite");
+    alert("Object added in favourite");
   }
 
   private searchCurObject(listings: any[]) : any[]{
