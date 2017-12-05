@@ -1,0 +1,21 @@
+interface IDataListing {
+  bathroom_number: string,
+  bedroom_number: number,
+  car_spaces: number,
+  commission: number,
+  img_url: string,
+  lister_url: string,
+  listing_type: string,
+  location_accuracy: number,
+  longitude: number,
+  price: number,
+  price_currency: string,
+  price_formatted: string,
+  size: number,
+  size_type: string,
+  summary: string,
+  thumb_height: number,
+  thumb_url: string,
+  thumb_width: number,
+  title: string
+}

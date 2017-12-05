@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {favesObjKey} from "../appConfig/app.config";
+import {FAVES_OBJ_KEY} from "../appConfig/app.config";
 
 @Component({
   selector: 'search-results-by-name',
@@ -22,8 +22,9 @@ export class FavesObj implements OnInit{
   }
 
   getFavesLocated(): Object[]{
-    return localStorage.getItem(favesObjKey)
-      ? JSON.parse(localStorage.getItem(favesObjKey)) : [];
+    let favesObj = localStorage.getItem(FAVES_OBJ_KEY);
+    return favesObj
+      ? JSON.parse(favesObj) : [];
   }
 
 }

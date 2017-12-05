@@ -7,8 +7,17 @@
   <div>
     <p>Use the form below to search for houses to buy. You can search by place-name, postcode,
       or click 'My location', to search in your current location!</p>
-    <input type="text" [(ngModel)]="strSearch">
-    <button (click)="getSearchLocatedByName(strSearch)">GO</button>
+    <div class="wrapper-custom-search">
+      <input class="strSearch" type="text" [(ngModel)]="strSearch" auto-complete [source]="autoStrSearchValues">
+
+      <select [(ngModel)]="chosenCountry" name="first">
+        <option *ngFor="let country of countries" [ngValue]="country.value">
+          {{country.name}}
+        </option>
+      </select>
+
+      <button (click)="getSearchLocatedByName(strSearch, chosenCountry)">GO</button>
+    </div>
     <button (click)="getCurrentLocations()">My location</button>
   </div>
 
@@ -26,7 +35,7 @@
       <div *ngIf="currentLocations">
         <div *ngFor="let currentLoc of currentLocations">
           <a [routerLink]="['/searchResults']" [queryParams]="{'strSearch': currentLoc.long_title_formatted}">
-              {{currentLoc.long_title}}</a>
+            {{currentLoc.long_title}}</a>
         </div>
       </div>
     </div>

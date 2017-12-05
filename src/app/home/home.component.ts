@@ -2,10 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {CurrentLocationsService} from '../services/currentLocationsData.service';
-import {searchHistoryKey} from '../appConfig/app.config';
+import * as Config from '../appConfig/app.config';
 
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
+import {SearchLocation} from "../searchLocation";
 
 @Component({
   selector: 'home',
@@ -14,11 +16,14 @@ import 'rxjs/add/operator/filter';
 })
 
 export class HomeComponent implements OnInit {
+  countries: any = Config.COUNTRIES;
+  autoStrSearchValues: string[] = Config.AUTO_STR_SEARCH_VALUES;
+  chosenCountry: string;
   instructionText: string;
   errorText: string;
   strSearch: string;
-  lastSearchLocations: Object[];
-  currentLocations: any[];
+  lastSearchLocations: SearchLocation[];
+  currentLocations: IDataLocation[];
 
   constructor(private router: Router, private customLocationsService: CustomLocationsService,
               private currentLocationsService: CurrentLocationsService) {
@@ -26,15 +31,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lastSearchLocations = localStorage.getItem(searchHistoryKey)
-      ? JSON.parse(localStorage.getItem(searchHistoryKey)) : [];
+    localStorage.setItem(Config.COUNTRY_NAME_KEY, null);
+    this.lastSearchLocations = localStorage.getItem(Config.SEARCH_HISTORY_KEY)
+      ? JSON.parse(localStorage.getItem(Config.SEARCH_HISTORY_KEY)) : [];
   }
 
   getSearchLocatedByName(str: string) {
-    let numStartPage = 1;
-    this.customLocationsService.getData(str, numStartPage).subscribe(data => {
-
-      if (data._body.response.listings.length > 0) {
+    if(!this.chosenCountry)
+      return this.errorText = Config.ERROR_CHOOSE_COUNTRY;
+    localStorage.setItem(Config.COUNTRY_NAME_KEY, this.chosenCountry);
+    this.customLocationsService.getData(str, Config.NUM_START_PAGE).subscribe(data => {
+      if (data.listings.length > 0) {
         this.router.navigate(['/searchResults'], {queryParams: {strSearch: str}});
       } else {
         this.errorText = "There was a problem with your search";
@@ -44,23 +51,36 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentLocations() {
-    this.currentLocationsService.getData()
-      .filter(data => data && data._body && data._body.response && data._body.response.locations)
-      .map((data) => {
-        return data._body.response.locations;
-      })
-      .map(locations => locations.map(location => {
-        location.long_title_formatted = location.long_title.replace(",", "_");
-        return location;
-      }))
+    this.errorText = this.chosenCountry ? null : Config.ERROR_CHOOSE_COUNTRY;
+    if(this.errorText)
+      return;
+    localStorage.setItem(Config.COUNTRY_NAME_KEY, this.chosenCountry);
+
+    navigator.geolocation.getCurrentPosition((position: Position) => {
+      this.setLocations(position);
+    });
+  }
+
+  goFavesPage() {
+    this.router.navigate(['/favesObjects']);
+  }
+
+  setLocations(position){
+    this.currentLocationsService.getData(position)
+      .filter(data => !!(data && data.locations))
+      .map(data => data.locations.map(this.getTitleFormatted))
       .subscribe(locations => {
+        if(locations.length == 0){
+          this.errorText = 'There were no properties found for the given location.';
+        }
         this.instructionText = "Please select a location below:";
         this.currentLocations = locations;
       });
   }
 
-  goFavesPage() {
-    this.router.navigate(['/favesObjects']);
+  getTitleFormatted(loc: IDataLocation){
+    loc.long_title_formatted = loc.long_title.replace(",", "_");
+    return loc;
   }
 
 }

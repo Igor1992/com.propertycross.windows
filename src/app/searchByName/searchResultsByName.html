@@ -1,5 +1,5 @@
 <div>
-  <h3 class="text-header-search-page" *ngIf="responseListings">{{responseListings.length}} of y matches</h3>
+  <h3 class="text-header-search-page" *ngIf="responseListings">{{responseListings.length}} of {{totalCountResults}} matches</h3>
   <div class="wrapper-listing-obj" *ngFor="let responseListing of responseListings">
     <a [routerLink]="['/propertyListing']" [queryParams]="{'id': responseListing.img_url, 'curStrSearch': strSearch}">
       <img src="{{responseListing.img_url}}" class="img-listing-obj">
