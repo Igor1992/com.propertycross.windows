@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CustomLocationsService} from '../services/customLocationsData.service';
 import {SearchLocation} from '../searchLocation';
 import {SEARCH_HISTORY_KEY, CURRENT_OBJ_KEY} from '../appConfig/app.config';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'search-results-by-name',

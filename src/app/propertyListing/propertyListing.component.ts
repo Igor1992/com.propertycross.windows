@@ -32,7 +32,7 @@ export class PropertyListing implements OnInit {
   }
 
   toggleFavorite() {
-    let favesObj = localStorage.getItem(FAVES_OBJ_KEY);
+    const favesObj = localStorage.getItem(FAVES_OBJ_KEY);
     this.favoritesObjects = favesObj
       ? JSON.parse(favesObj) : [];
 
