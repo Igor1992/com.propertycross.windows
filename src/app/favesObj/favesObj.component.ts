@@ -22,7 +22,7 @@ export class FavesObj implements OnInit{
   }
 
   getFavesLocated(): Object[]{
-    let favesObj = localStorage.getItem(FAVES_OBJ_KEY);
+    const favesObj = localStorage.getItem(FAVES_OBJ_KEY);
     return favesObj
       ? JSON.parse(favesObj) : [];
   }

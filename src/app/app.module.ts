@@ -13,6 +13,7 @@ import { FavesObj } from './favesObj/favesObj.component';
 import { CustomLocationsService } from './services/customLocationsData.service';
 import { CurrentLocationsService } from './services/currentLocationsData.service';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import { HttpUtils } from "./services/httpUtils.service";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
   ],
   providers: [
     CustomLocationsService,
-    CurrentLocationsService
+    CurrentLocationsService,
+    HttpUtils
   ],
   bootstrap: [ AppComponent ]
 })
