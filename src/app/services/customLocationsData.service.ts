@@ -2,32 +2,29 @@ import {Jsonp, Response, URLSearchParams} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {COUNTRY_NAME_KEY} from "../appConfig/app.config";
+import {HttpUtils} from "../services/httpUtils.service";
 
 @Injectable()
 export class CustomLocationsService {
 
-  constructor(private _jsonp: Jsonp) {}
+  constructor(private _jsonp: Jsonp, private httpUtils: HttpUtils) {}
 
   getData(str: string, numPage: number): Observable<IDataFromDto> {
     const countryKey = localStorage.getItem(COUNTRY_NAME_KEY);
-    const url = `https://api.nestoria.${countryKey}/api?`;
-    const params = this.getParams(str, numPage);
-    const request =this._jsonp.request(url, {search: params});
+    const params = this.httpUtils.getParams({
+      pretty: '1',
+      action: 'search_listings',
+      encoding: 'json',
+      listing_type: 'buy',
+      page: encodeURIComponent(numPage.toString()),
+      callback: 'JSONP_CALLBACK',
+      place_name: str
+    });
+
+    const url = `https://api.nestoria.${countryKey}/api?${params}`;
+    const request =this._jsonp.request(url);
     return request
       .map((data: Response) => data.json().response);
-  }
-
-  getParams(str, numPage): URLSearchParams {
-    const params: URLSearchParams = new URLSearchParams();
-    params.set('pretty', '1');
-    params.set('action', 'search_listings');
-    params.set('encoding', 'json');
-    params.set('listing_type', 'buy');
-    params.set('page', numPage);
-    params.set('callback', 'JSONP_CALLBACK');
-    params.set('place_name', str);
-
-    return params;
   }
 
 }
