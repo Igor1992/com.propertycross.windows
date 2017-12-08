@@ -1,8 +1,8 @@
-import {Jsonp, Response, URLSearchParams} from '@angular/http';
+import {Jsonp, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {COUNTRY_NAME_KEY} from "../appConfig/app.config";
-import {HttpUtils} from "../services/httpUtils.service";
+import {HttpUtils} from "./httpUtils.service";
 
 @Injectable()
 export class CustomLocationsService {
