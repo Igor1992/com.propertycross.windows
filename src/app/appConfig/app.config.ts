@@ -3,6 +3,7 @@ export const CURRENT_OBJ_KEY = 'currentObjectsInList';
 export const SEARCH_HISTORY_KEY = 'searchLocationsHistory';
 export const COUNTRY_NAME_KEY = 'countryName';
 export const ERROR_CHOOSE_COUNTRY = "Please choose country!";
+export const ERROR_SUPPORT_COUNTRY = "The location given was not recognised";
 
 export const NUM_START_PAGE = 1;
 export const AUTO_STR_SEARCH_VALUES = ["Paris","Anjangaon", "London", "Leeds", "Berlin", "Madrid", "Rome", "Barcelona",

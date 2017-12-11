@@ -51,10 +51,10 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentLocations() {
-    this.errorText = this.chosenCountry ? null : Config.ERROR_CHOOSE_COUNTRY;
+    this.errorText = Config.COUNTRIES.filter(item => item.value == navigator.language)[0]
+      ? null : Config.ERROR_SUPPORT_COUNTRY;
     if(this.errorText)
       return;
-    localStorage.setItem(Config.COUNTRY_NAME_KEY, this.chosenCountry);
 
     navigator.geolocation.getCurrentPosition((position: Position) => {
       this.setLocations(position);
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   setLocations(position){
-    this.currentLocationsService.getData(position)
+    this.currentLocationsService.getData(navigator.language, position)
       .filter(data => !!(data && data.locations))
       .map(data => data.locations.map(this.getTitleFormatted))
       .subscribe(locations => {

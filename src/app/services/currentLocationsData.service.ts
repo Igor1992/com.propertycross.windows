@@ -1,7 +1,6 @@
 import {Jsonp, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {COUNTRY_NAME_KEY} from "../appConfig/app.config";
 import {HttpUtils} from "./httpUtils.service";
 
 @Injectable()
@@ -9,8 +8,7 @@ export class CurrentLocationsService {
 
   constructor(private _jsonp: Jsonp, private httpUtils: HttpUtils) {}
 
-  getData(position: Position): Observable<IDataFromDto> {
-    const countryKey = localStorage.getItem(COUNTRY_NAME_KEY);
+  getData(codeCountry: string, position: Position): Observable<IDataFromDto> {
     const centerPoint = `${position.coords.latitude},${position.coords.longitude}`;
 
     const params = this.httpUtils.getParams({
@@ -23,7 +21,7 @@ export class CurrentLocationsService {
       centre_point: centerPoint
     });
 
-    const url = `https://api.nestoria.${countryKey}/api?${params}`;
+    const url = `https://api.nestoria.${codeCountry}/api?${params}`;
 
     const request = this._jsonp.request(url);
     return request
